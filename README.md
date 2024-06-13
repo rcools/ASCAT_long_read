@@ -63,6 +63,6 @@ For more information about ASCAT and other projects of our group, please visit o
 - First the Allelecounter needs to be altered, set the min_bas_qual lower to run on long reads (15) and added the flag: f -0. Both changes are exposed to ascat.prepareHTS().
 - Next Created a loci_binsize = 1 parameter in ascat.getBAFsAndLogRs() and exposed it to ascat.prepareHTS() as well:
  #' @param loci_binsize Size of the bins to subsample loci, reduces autocorrelation in BAF/LogR for long-read sequencing (optional, default = 1, no binning) and modified the ascat.getBAFsAndLogRs(). Now you want the alter the local_binsize in ascat.prepareHTS(). (In my experience runs best at 2000)
--Further, no GC-correction is needed as long read doesn't use PCR
--Latsly, in my experience setting the penalty in ascat.aspcf to 200 reduces to noice.
+- Further, no GC-correction is needed as long read doesn't use PCR
+- Latsly, in my experience setting the penalty in ascat.aspcf to 200 reduces to noice.
   
