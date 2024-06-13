@@ -70,7 +70,7 @@ For more information about ASCAT and other projects of our group, please visit o
 
 ascat.prepareHTS(
   tumourseqfile = tumour_BAM,
-  tumourname = paste0(PTCLid,"_T"),
+  tumourname = name,
   allelecounter_exe = allelecounter ,
   skip_allele_counting_tumour = FALSE,
   alleles.prefix = G1000_alleles_hg38_chr,
