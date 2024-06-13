@@ -65,4 +65,24 @@ For more information about ASCAT and other projects of our group, please visit o
  #' @param loci_binsize Size of the bins to subsample loci, reduces autocorrelation in BAF/LogR for long-read sequencing (optional, default = 1, no binning) and modified the ascat.getBAFsAndLogRs(). Now you want the alter the local_binsize in ascat.prepareHTS(). (In my experience runs best at 2000)
 - Further, no GC-correction is needed as long read doesn't use PCR
 - Latsly, in my experience setting the penalty in ascat.aspcf to 200 reduces to noice.
+- You want the run it like this:
+- #HTS tumour only long-read
+
+ascat.prepareHTS(
+  tumourseqfile = tumour_BAM,
+  tumourname = paste0(PTCLid,"_T"),
+  allelecounter_exe = allelecounter ,
+  skip_allele_counting_tumour = FALSE,
+  alleles.prefix = G1000_alleles_hg38_chr,
+  loci.prefix = G1000_loci_hg38_chr,
+  gender = gender,
+  genomeVersion = "hg38",
+  nthreads = 12,
+  tumourLogR_file = "Tumor_LogR.txt",
+  tumourBAF_file = "Tumor_BAF.txt",
+  loci_binsize = 2000,
+  min_base_qual= 15,
+  additional_allelecounter_flags="-f 0")
+
+
   
