@@ -210,8 +210,8 @@ ascat.getBAFsAndLogRs = function(samplename, tumourAlleleCountsFile.prefix, norm
   # Save data.frames to disk
   write.table(tumor.LogR[unifidx,], file=tumourLogR_file, row.names=TRUE, quote=FALSE, sep="\t", col.names=NA)
   write.table(tumor.BAF[unifidx,], file=tumourBAF_file, row.names=TRUE, quote=FALSE, sep="\t", col.names=NA)
-  #write.table(germline.LogR[unifidx,], file=normalLogR_file, row.names=TRUE, quote=FALSE, sep="\t", col.names=NA)
-  #write.table(germline.BAF[unifidx,], file=normalBAF_file, row.names=TRUE, quote=FALSE, sep="\t", col.names=NA)
+  write.table(germline.LogR[unifidx,], file=normalLogR_file, row.names=TRUE, quote=FALSE, sep="\t", col.names=NA)
+  write.table(germline.BAF[unifidx,], file=normalBAF_file, row.names=TRUE, quote=FALSE, sep="\t", col.names=NA)
 }
   
 
