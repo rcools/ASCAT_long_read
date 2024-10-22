@@ -58,18 +58,23 @@ Because arrays have a defined set of SNP probes, with a fairly constant rate of 
 
 ## Misc
 For more information about ASCAT and other projects of our group, please visit our [website](https://www.crick.ac.uk/research/a-z-researchers/researchers-v-y/peter-van-loo/software/).
-# Changes to let ASCAT run on long-read data:
-- First the Allelecounter needs to be altered, set the @param ```min_bas_qual``` lower to run on long reads (15) and added the flag: @param```f -0```. Both changes are exposed to `ascat.prepareHTS()`.
-- #' @param '''loci_binsize Size''' of the bins to subsample loci, reduces autocorrelation in BAF/LogR for long-read sequencing (optional, default = 1, no binning) and modified the ascat.getBAFsAndLogRs(). Now you want the alter the local_binsize in ascat.prepareHTS(). (In my experience, long read need to be binned at 500 or even higher depending on the avergae length of your reads)
-- Further, no GC-correction is needed as long read doesn't use PCR
-- Latsly, changing the penalty in '''ascat.aspcf''' to a higher value can help in reducing the noice.
-- Example of the new 'ascat.prepareHTS' function for long reads:
-- #HTS tumour only long-read
 
-'ascat.prepareHTS(
+# Changes to let ASCAT run on long-read data:
+- First the Allelecounter needs to be altered, set the `min_bas_qual` lower to run on long reads (10) and added the flag: `f -0`. Both changes are exposed to `ascat.prepareHTS()`.
+- `loci_binsize` Size of the bins to subsample loci, reduces autocorrelation in BAF/LogR for long-read sequencing (optional, default = 1, no binning) and modified in the `ascat.getBAFsAndLogRs()`. Now you want the alter the local_binsize in `ascat.prepareHTS()` for long reads. (In my experience, long read need to be binned at 500 or even higher depending on the avergae length of your reads)
+- Further, if there was no PCR step in the library prep, GC correction is not needed.
+- Latsly, changing the penalty in `ascat.aspcf` to a higher value can help in reducing the noice.
+- Example of the new `ascat.prepareHTS` function for long reads:
+- HTS tumour only long-read
+
+```
+ascat.prepareHTS(
   tumourseqfile = tumour_BAM,
-  tumourname = name,
-  allelecounter_exe = allelecounter ,
+  normalseqfile = normal_BAM,
+  tumourname = name_tumour,
+  normalname = name_normal,
+  allelecounter_exe = allelecounter,
+  skip_allele_counting_normal = FALSE,
   skip_allele_counting_tumour = FALSE,
   alleles.prefix = G1000_alleles_hg38_chr,
   loci.prefix = G1000_loci_hg38_chr,
@@ -79,8 +84,9 @@ For more information about ASCAT and other projects of our group, please visit o
   tumourLogR_file = "Tumor_LogR.txt",
   tumourBAF_file = "Tumor_BAF.txt",
   loci_binsize = 1000,
-  min_base_qual= 15,
-  additional_allelecounter_flags="-f 0")'
+  min_base_qual= 10,
+  additional_allelecounter_flags="-f 0")
+```
 
 
   
