@@ -60,12 +60,11 @@ Because arrays have a defined set of SNP probes, with a fairly constant rate of 
 For more information about ASCAT and other projects of our group, please visit our [website](https://www.crick.ac.uk/research/a-z-researchers/researchers-v-y/peter-van-loo/software/).
 
 # Changes to let ASCAT run on long-read data:
-- First the Allelecounter needs to be altered, set the `min_bas_qual` lower to run on long reads (10) and added the flag: `f -0`. Both changes are exposed to `ascat.prepareHTS()`.
-- `loci_binsize` Size of the bins to subsample loci, reduces autocorrelation in BAF/LogR for long-read sequencing (optional, default = 1, no binning) and modified in the `ascat.getBAFsAndLogRs()`. Now you want the alter the local_binsize in `ascat.prepareHTS()` for long reads. (In my experience, long read need to be binned at 500 or even higher depending on the avergae length of your reads)
+- First the Allelecounter needs to be altered, set the `min_base_qual=10` to run on long reads and added the flag: `f -0`. Both changes are exposed to `ascat.prepareHTS()`.
+- `loci_binsize` Size of the bins to subsample loci, reduces autocorrelation in BAF/LogR for long-read sequencing (optional, default = 1, no binning) and modified in the `ascat.getBAFsAndLogRs()`. Now you want to set the `local_binsize=500` in `ascat.prepareHTS()` for long reads. (In my experience, long read need to be binned at 500 or even higher depending on the avergae length of your reads)
 - Further, if there was no PCR step in the library prep, GC correction is not needed.
-- Latsly, changing the penalty in `ascat.aspcf` to a higher value can help in reducing the noice.
+- Lastly, changing the penalty in `ascat.aspcf` to a higher value can help in reducing the noise.
 - Example of the new `ascat.prepareHTS` function for long reads:
-- HTS tumour only long-read
 
 ```
 ascat.prepareHTS(
@@ -83,7 +82,7 @@ ascat.prepareHTS(
   nthreads = 12,
   tumourLogR_file = "Tumor_LogR.txt",
   tumourBAF_file = "Tumor_BAF.txt",
-  loci_binsize = 1000,
+  loci_binsize = 500,
   min_base_qual= 10,
   additional_allelecounter_flags="-f 0")
 ```
